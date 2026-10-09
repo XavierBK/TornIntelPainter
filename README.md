@@ -15,19 +15,7 @@ pip install pyautogui Pillow
 ---
 
 ## 📍 Step 2: Finding Your Coordinates (`coords.py`)
-The bot needs to know exactly where to click on your screen. Because of different zooms and monitors, we use a helper script to find these numbers.
-
-If you don't have it, create a file named `coords.py` with this code:
-```python
-import pyautogui, time
-print("Hover over your target. Press Ctrl+C to stop.")
-try:
-    while True:
-        print(pyautogui.position())
-        time.sleep(1)
-except KeyboardInterrupt:
-    print("Done!")
-```
+The bot needs to know exactly where to click on your screen. Because of different zooms and monitors, we use a helper script `coords.py` to find these numbers.
 
 **How to use it:**
 1. Run `coords.py` in your terminal. It will start printing out your mouse's X and Y coordinates every second.
@@ -41,7 +29,7 @@ except KeyboardInterrupt:
 ---
 
 ## ⚙️ Step 3: Configuring the Bot (`pixel_bot.py`)
-Open `pixel_bot.py` in a text editor (like Notepad or VS Code) and look at the `--- CONFIGURATION ---` section at the top. 
+Open `painter.py` in a text editor (like Notepad or VS Code) and look at the `--- CONFIGURATION ---` section at the top. 
 
 Update the variables using the numbers you just wrote down:
 
@@ -59,6 +47,7 @@ HEX_INPUT_Y = 80      # Replace with your hex input box Y
 
 ### Canvas Size vs. Chunk Size
 You also need to tell the bot how big the *entire game board* is right now, not just your image chunk.
+- You can set it to a small chunk if you are zoomed in for better precision
 * If the faction is currently working on the level 3 canvas, set it to:
   ```python
   CANVAS_GRID_WIDTH = 256
@@ -70,7 +59,7 @@ You also need to tell the bot how big the *entire game board* is right now, not 
 ## 🧩 Step 4: Placing Your Chunk
 When faction leadership gives you a smaller chunk of an image (e.g., a 64x64 PNG), save it to the same folder as the script and update the filename in the config:
 ```python
-IMAGE_PATH = 'my_assigned_chunk.png'
+IMAGE_PATH = 'my_assigned_chunk.jpg'
 ```
 
 **Positioning your chunk:**
@@ -88,17 +77,16 @@ START_Y = 0    # Keeps it at the top
 ## 🚀 Step 5: Running the Bot
 Once configured, run the script!
 ```bash
-python pixel_bot.py
+python painter.py
 ```
 1. It will ask you for your **current cooldown**. Enter it (e.g., `0.5`, `1.5`, `2.5`) and press Enter.
 2. You will have **5 seconds** to switch to your browser window.
 3. Let go of the mouse and watch it work!
 
 ### 🛑 EMERGENCY STOP (Failsafe)
-If the bot messes up or you need to stop it instantly, **slam your physical mouse into any of the 4 corners of your computer monitor.** The `pyautogui` library has a built-in failsafe that will instantly crash and stop the script if the mouse hits the very edge of the screen.
+If the bot messes up or you need to stop it instantly, **move your mouse into any of the 4 corners of your computer monitor.** The `pyautogui` library has a built-in failsafe that will instantly stop the script if the mouse hits the very edge of the screen.
 
 ---
 
 ### Tips for Faction Mates
-* **Transparency:** The bot automatically ignores fully transparent pixels in PNG files. This saves massive amounts of cooldown time!
 * **Browser Zoom:** Do not change your browser zoom or scroll the page after finding your coordinates. If you scroll, your coordinates will be completely wrong and the bot will click the wrong things!
